@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>::Resume Profile </title>
+</head>
+<body>
+	<div class="main">
+		<div class="left">
+			
+		</div>
+		<div class="right">
+			
+		</div>
+	</div>
+
+</body>
+</html>
+<script type="text/javascript">
+	var url=window.location.search;
+	var length=url.length;
+	var profile=url.slice(1,length);
+	        var indexedDB=window.indexedDB || window.mozIndexedDB ||window.webkitIndexedDB || window.msIndexedDB;
+        indexedDB ? console.log("success") : console.log("error"); 
+        var open;
+        var result;
+        var store;
+        var tx;
+        var request =indexedDB.open("database",1);
+        request.onupgradeneeded=function(e){
+           open=e.target.result;
+            store=open.createObjectStore("resumedata",{keyPath:"name"});
+        }
+        request.onerror=function(e){
+        	console.log("error"+e);
+
+        }
+         request.onsuccess=function(e){
+         	open=e.target.result;
+         	tx = open.transaction("resumedata","readwrite");
+         	store = tx.objectStore("resumedata");
+         	var info=store.get(profile);
+         	info.onsuccess=function(data){
+         		console.log(data);
+         		display(data.target.result);
+         	}
+         }
+         var left=document.querySelector(".left");
+          var right=document.querySelector(".right");
+          function display(d){
+          	var image=document.createElement("img");
+          	image.src="./green pics.jpg";
+          	left.append(image);
+
+          	var h2=document.createElement("h2");
+          	h2.textContent=d.name;
+          	left.appendChild(h2);
+
+          	var h21=document.createElement("h21");
+          	h21.textContent=d.rollno;
+          	left.appendChild(h21);
+
+          	var h22=document.createElement("h22");
+          	h22.textContent=d.mobile;
+          	left.appendChild(h22);
+
+            var h24=document.createElement("h24");
+            h24.textContent=d.mobile;
+            left.appendChild(h24);
+
+          	var h23=document.createElement("h23");
+      	    h23.textContent=d.place;
+          	left.appendChild(h23);
+
+         	
+    
+    
+    
+	   //  for(var i in d.education){
+    // var h4=document.createElement("h4");
+    // h4.textContent=d.education[i].degree;
+    // right.append(h4);
+    // var ul=document.createElement("ul");
+    // var instli=document.createElement("li");
+    // instli.textContent=d.education[i].inst;
+    // ul.appendChild(instli);
+    // var perli=document.createElement("li");
+    // perli.textContent=d.education[i].per;
+    // ul.appendChild(perli);
+    // var yopli=document.createElement("li");
+    // yopli.textContent=d.education[i].yop;
+    // ul.appendChild(instli);
+
+}
+          
+</script>
